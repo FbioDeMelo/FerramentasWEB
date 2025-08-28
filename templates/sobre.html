@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - Conversor de Word para PDF</title>
+    <link rel="stylesheet" href="/static/sobre.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://ams3.cdnastron.com.br/modelo-v1-2/mod_preferencias/ext_header-login/cn150150/header-login-10638.jpg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Líbano" class="navbar-logo">
+        </a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="/"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="/sobre"><i class="fas fa-info-circle"></i> Sobre</a></li>
+            <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es"><i class="fas fa-envelope"></i> Contato</a></li>
+        </ul>
+    </nav>
+<main class="main-content">
+  <div class="container">
+    <header>
+      <h1>Sobre o Sistema</h1>
+    </header>
+<section aria-label="Descrição do sistema">
+  <p>Este sistema de conversão de arquivos foi desenvolvido para oferecer uma solução completa, gratuita e acessível para transformar documentos entre formatos como PDF, DOCX, imagens (PNG/JPG) e muito mais. É ideal para estudantes, profissionais e empresas que buscam agilidade e praticidade, sem depender de plataformas pagas ou conexão constante com a internet.</p>
+  <p>Com uma interface clara e objetiva, o projeto visa automatizar tarefas comuns como conversões, unificações e extrações de arquivos, entregando resultados com alta qualidade e rapidez diretamente no navegador.</p>
+</section>
+<section class="highlight-box" aria-label="Tecnologias utilizadas">
+  <h2><i class="fas fa-code"></i> Tecnologias Utilizadas</h2>
+  <ul class="tech-list">
+    <li>HTML5 e CSS3 – Estrutura e estilo responsivo da interface</li>
+    <li>JavaScript – Funcionalidades dinâmicas e validações no lado do cliente</li>
+    <li>Python (Flask) – Framework web leve para o back-end e roteamento</li>
+    <li>pdf2docx – Conversão de arquivos PDF para DOCX</li>
+    <li>LibreOffice (via subprocess) – Conversão de arquivos DOCX para PDF</li>
+    <li>PyMuPDF (fitz) – Extração de páginas de PDF como imagens</li>
+    <li>Pillow (PIL) – Manipulação e conversão de imagens para PDF</li>
+    <li>pypdf – Mesclagem de múltiplos arquivos PDF</li>
+    <li>zipfile – Compactação de múltiplos arquivos convertidos</li>
+    <li>Werkzeug – Manipulação segura de nomes de arquivos</li>
+  </ul>
+</section>
+    <section aria-label="Equipe de desenvolvimento">
+      <h2>Equipe de Desenvolvimento</h2>
+      <p>O sucesso deste projeto só foi possível graças ao esforço colaborativo de todos os envolvidos. Confira abaixo as principais contribuições:</p>
+      <ul class="team-list">
+        <li><strong>Fábio de Melo Fernandes</strong>: Desenvolvedor principal do projeto. Foi responsável pelo planejamento completo do sistema, desde a arquitetura até a implementação das funcionalidades essenciais.</li>
+        <li><strong>André Luis Amaro</strong>: Apoiou ativamente na identificação e correção de erros no código, garantindo maior estabilidade e desempenho do sistema durante sua execução.</li>
+        <li><strong>Julliane Alves</strong>: Foi a idealizadora da aplicação prática do sistema dentro do contexto empresarial, propondo a implantação em toda a empresa para otimizar processos internos.</li>
+      </ul>
+    </section>
+    <section class="contact-section" aria-labelledby="contato">
+      <h2 id="contato"><i class="fas fa-headset"></i> Fale Conosco</h2>
+      <p>Precisa de ajuda ou tem sugestões para melhorar nosso sistema? Entre em contato conosco:</p>
+      <div class="contact-methods" role="list">
+        <article class="contact-card" role="listitem">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <h3>E-mail</h3>
+          <p><a href="fabio.fernandes@libanoeducacional.com.br">fabio.fernandes@libanoeducacional.com.br</a></p>
+          <a href="fabio.fernandes@libanoeducacional.com.br" class="contact-btn" aria-label="Enviar mensagem por e-mail">Enviar Mensagem</a>
+        </article>
+        <article class="contact-card" role="listitem">
+          <i class="fas fa-phone-alt" aria-hidden="true"></i>
+          <h3>Telefone</h3>
+          <p><a href="tel:+553199283513">31 9928-3513</a></p>
+          <a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es" class="contact-btn" aria-label="Ligar para suporte">Entre em Contato</a>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img src="https://institutolibanoead.com.br/_next/image?url=%2Froot%2Flogo-website-branca.webp&w=1920&q=75" alt="Faculdade Líbano" class="footer-logo">
+            <p>“Porventura não se converterá o Líbano, num breve momento, em campo fértil? E o campo fértil não se reputará por um bosque?”-Isaías 29:17</p>
+        </div>
+        <div class="footer-col">
+            <h4>Links Rápidos</h4>
+            <ul>
+                <li><a href="https://libanoposgraduacao.com.br">Início</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es">Contato</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociais</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Faculdade Líbano. Todos os direitos reservados.</p>
+    </div>
+</footer>
+    <script>
+        function toggleMenu() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            navbarLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

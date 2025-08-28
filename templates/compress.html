@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Comprimir Arquivos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://ams3.cdnastron.com.br/modelo-v1-2/mod_preferencias/ext_header-login/cn150150/header-login-10638.jpg" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">
+      <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Libano" class="navbar-logo">
+    </a>
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <ul class="navbar-links">
+      <li><a href="/"><i class="fas fa-home"></i> Início</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn"><i class="fas fa-tools"></i> Ferramentas <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+          <a href="/wordpdf">PDF para WORD</a>
+          <a href="/pdfword">WORD para PDF</a>
+          <a href="/imgpdf">PNG para PDF</a>
+          <a href="/pdfimg">PDF para PNG</a>
+          <a href="/juntarpdf">Unir PDFs</a>
+        </div>
+      </li>
+      <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es"><i class="fas fa-envelope"></i> Contato</a></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <div class="container">
+      <h1>Comprimir Arquivos</h1>
+      <form action="/compress" method="post" enctype="multipart/form-data">
+          <div class="file-upload-wrapper">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Arraste ou selecione os arquivos</p>
+          <input type="file" name="file" multiple required>
+        </div>
+        <ul class="file-list" id="file-list"></ul>
+        <div style="margin-bottom: 1.5rem; text-align: left;">
+          <label for="zipname"><strong>Nome do arquivo ZIP:</strong></label>
+          <input type="text" id="zipname" name="zipname" placeholder="meu_arquivo.zip" required 
+                 style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; margin-top:5px;">
+        </div>
+        <button type="submit" class="btn btn-primary">Comprimir</button>
+           <button type="button" class="btn btn-secondary" onclick="abrirModal()">
+                  <i class="fas fa-trash-alt"></i> Limpar Seleção
+              </button>
+        </form>
+        <div id="modalAviso" class="modal">
+              <div class="modal-content">
+                  <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Líbano" class="modal-logo">
+                  <span class="close" onclick="fecharModal()">&times;</span>
+                  <h2>Tem certeza que deseja limpar a seleção do arquivo?</h2>
+                  <div class="modal-buttons">
+                      <button class="btn btn-accent" onclick="limparArquivo()">
+                          <i class="fas fa-check"></i> Sim, limpar
+                      </button>
+                      <button class="btn btn-secondary" onclick="fecharModal()">
+                          <i class="fas fa-times"></i> Cancelar
+                      </button>
+                  </div>
+              </div>
+          </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="https://institutolibanoead.com.br/_next/image?url=%2Froot%2Flogo-website-branca.webp&w=1920&q=75" alt="Faculdade Líbano" class="footer-logo">
+        <p>“Porventura não se converterá o Líbano, num breve momento, em campo fértil? E o campo fértil não se reputará por um bosque?”<br>– Isaías 29:17</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="https://libanoposgraduacao.com.br">Início</a></li>
+          <li><a href="/sobre">Sobre</a></li>
+          <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Faculdade Líbano. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  <script>
+    const input = document.querySelector('input[type="file"]');
+    const fileList = document.getElementById('file-list');
+
+    input.addEventListener('change', () => {
+      fileList.innerHTML = '';
+      for (const file of input.files) {
+        const li = document.createElement('li');
+        li.textContent = file.name;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        removeBtn.addEventListener('click', () => {
+          li.remove();
+        });
+
+        li.appendChild(removeBtn);
+        fileList.appendChild(li);
+      }
+    });
+            function abrirModal() {
+          document.getElementById('modalAviso').style.display = 'flex';
+      }
+      function fecharModal() {
+          document.getElementById('modalAviso').style.display = 'none';
+      }
+  function limparArquivo() {
+    input.value = '';
+    fileList.innerHTML = "<li style='color:#666; font-weight:normal;'>Nenhum arquivo selecionado</li>";
+    fecharModal();
+}
+  </script>
+</body>
+</html>

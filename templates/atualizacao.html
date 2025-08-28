@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Atualizações</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #ea005f;
+      --primary-dark: #c1004e;
+      --secondary: #6c63ff;
+      --light-bg: #f8f9fa;
+      --dark-text: #333;
+      --light-text: #6c757d;
+      --border-radius: 12px;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      line-height: 1.6;
+      padding: 20px;
+      padding-top: 90px; /* Espaço para a navbar fixa */
+    }
+
+    /* NAVBAR MELHORADA */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .navbar.scrolled {
+      padding: 0.6rem 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 12px;
+    }
+
+    .navbar-logo {
+      height: 42px;
+      width: auto;
+      transition: var(--transition);
+    }
+    
+    .navbar-brand:hover .navbar-logo {
+      transform: scale(1.05);
+    }
+
+    .brand-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: none;
+    }
+
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 0;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark-text);
+      font-weight: 500;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      color: var(--primary);
+      background-color: rgba(234, 0, 95, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .nav-link i {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--primary);
+      border-radius: 3px;
+      transition: var(--transition);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Conteúdo principal */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      color: var(--dark-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: var(--light-text);
+      font-size: 1.1rem;
+    }
+
+    /* --- Busca --- */
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 20px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      outline: none;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(234, 0, 95, 0.2);
+    }
+
+    /* --- Timeline --- */
+    .timeline {
+      position: relative;
+      margin: 2rem 0;
+      padding-left: 30px;
+      border-left: 3px solid var(--primary);
+    }
+
+    .update-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .update-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .update-card::before {
+      content: '';
+      position: absolute;
+      left: -42px;
+      top: 20px;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px rgba(234, 0, 95, 0.2);
+    }
+
+    .update-card.featured::before {
+      background: gold;
+    }
+
+    .update-card.featured::after {
+      content: 'ÚLTIMA VERSÃO';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: gold;
+      color: #333;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .version-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .version-1 { background: #e0f7fa; color: #006064; }
+    .version-2 { background: #e8f5e9; color: #2e7d32; }
+    .version-3 { background: #f3e5f5; color: #6a1b9a; }
+    .version-4 { background: #ffffff; color: #ef0707; }
+
+    .update-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-text);
+    }
+
+    .date {
+      color: var(--light-text);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .update-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .update-list li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+      border-bottom: 1px dashed #f0f0f0;
+    }
+
+    .update-list li:last-child { border-bottom: none; }
+
+    .update-list li i {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .feature { color: #4caf50; }
+    .improvement { color: #2196f3; }
+    .bugfix { color: #f44336; }
+    .performance { color: #ff9800; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2rem;
+      text-decoration: none;
+      background: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(234, 0, 95, 0.3);
+    }
+
+    .back-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(234, 0, 95, 0.4);
+    }
+
+    /* Media Queries para responsividade */
+    @media (min-width: 992px) {
+      .brand-text {
+        display: block;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .navbar {
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .navbar-nav {
+        position: fixed;
+        top: 50px;
+        left: -100%;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        gap: 1rem;
+        transition: var(--transition);
+      }
+      
+      .navbar-nav.active {
+        left: 0;
+      }
+      
+      .nav-link {
+        padding: 0.8rem 1rem;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 80px;
+      }
+      
+      .container { 
+        padding: 1.5rem; 
+        margin: 1rem auto; 
+      }
+      
+      .header h1 { 
+        font-size: 1.8rem; 
+      }
+      
+      .update-card { 
+        padding: 1.2rem; 
+      }
+      
+      .update-card h2 { 
+        font-size: 1.2rem; 
+      }
+      
+      .navbar-logo {
+        height: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0.7rem 1rem;
+      }
+      
+      .navbar-logo {
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Melhorada -->
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">
+      <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Libano" class="navbar-logo">
+    </a>
+    
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <ul class="navbar-nav" id="navbarNav">
+      <li class="nav-item">
+        <a href="/" class="nav-link active">
+          <i class="fas fa-home"></i> Início
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/sobre" class="nav-link">
+          <i class="fas fa-info-circle"></i> Sobre
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es" class="nav-link">
+          <i class="fas fa-envelope"></i> Contato
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-history"></i> Histórico de Atualizações</h1>
+      <p>Acompanhe todas as melhorias e novidades do sistema</p>
+    </div>
+
+    <!-- Barra de busca -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar por versão, data ou palavra-chave...">
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <div class="update-card featured" data-category="feature improvement">
+        <span class="version-badge version-4">v1.2.1</span>
+        <h2>Agosto de 2025</h2>
+        <span class="date"><i class="far fa-calendar-alt"></i> 29 de Agosto, 2025</span>
+    <ul class="update-list">
+  <li>
+    <i class="fas fa-file-alt text-blue-500"></i> 
+    Correção no erro do <strong>Conversor de Texto</strong>
+  </li>
+  <li>
+    <i class="fas fa-filter text-green-500"></i> 
+    Melhorias visuais na <strong>tela inicial</strong>, com novo filtro e campo de pesquisa
+  </li>
+  <li>
+    <i class="fas fa-file-word text-indigo-500"></i> 
+    Correção da falha na conversão de <strong>Word para PDF</strong>
+  </li>
+  <li>
+    <i class="fas fa-tachometer-alt text-yellow-500"></i> 
+    Ajustes de desempenho e melhorias sutis no design
+  </li>
+</ul>
+      </div>
+
+      <div class="update-card" data-category="improvement bugfix">
+        <span class="version-badge version-3">v1.2</span>
+        <h2>Agosto de 2025</h2>
+        <span class="date"><i class="far fa-calendar-alt"></i> 22 de Agosto, 2025</span>
+        <ul class="update-list">
+          <li><i class="fas fa-plus-circle feature"></i> Nova ferramenta adicionada: <b>Comprimir PDF</b>e  <b>Descompactar</b></li>
+          <li><i class="fas fa-wrench improvement"></i> Melhorias na lista de arquivos com opção de remover individualmente</li>
+          <li><i class="fas fa-paint-brush improvement"></i> Padronização visual entre todas as telas de upload</li>
+          <li><i class="fas fa-bolt performance"></i> Ajustes de desempenho e correções menores</li>
+        </ul>
+      </div>
+      <div class="update-card" data-category="improvement bugfix">
+        <span class="version-badge version-2">v1.1</span>
+        <h2>Agosto de 2025</h2>
+        <span class="date"><i class="far fa-calendar-alt"></i> 06 de Agosto, 2025</span>
+        <ul class="update-list">
+          <li><i class="fas fa-plus-circle feature"></i> Nova ferramenta adicionada: <b>Conversor Texto</b></li>
+          <li><i class="fas fa-wrench improvement"></i> Melhorias no conversor PDF → Word</li>
+          <li><i class="fas fa-bug bugfix"></i> Correções no upload múltiplo de arquivos</li>
+        </ul>
+      </div>
+
+      <div class="update-card" data-category="feature">
+        <span class="version-badge version-1">v1.0</span>
+        <h2>Julho de 2025</h2>
+        <span class="date"><i class="far fa-calendar-alt"></i> 29 de Julho, 2024</span>
+        <ul class="update-list">
+          <li><i class="fas fa-plus-circle feature"></i> Lançamento inicial do sistema com suporte a PDF → Word e Imagem → PDF</li>
+        </ul>
+      </div>
+    </div>
+
+    <a href="/" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Voltar ao início
+    </a>
+  </div>
+
+  <script>
+    // --- Filtro de busca ---
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let cards = document.querySelectorAll(".update-card");
+
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+
+    // --- Menu Hamburguer ---
+    const hamburger = document.getElementById('hamburger');
+    const navbarNav = document.getElementById('navbarNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navbarNav.classList.toggle('active');
+    });
+
+    // Fechar o menu ao clicar em um link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navbarNav.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

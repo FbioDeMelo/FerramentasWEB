@@ -1,0 +1,60 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Conversor de Texto</title>
+    <link rel="icon" href="https://ams3.cdnastron.com.br/modelo-v1-2/mod_preferencias/ext_header-login/cn150150/header-login-10638.jpg" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="/static/style.css">     
+     <link rel="stylesheet" href="/static/textconverser.css">    
+
+    </head>
+    <body>
+        <nav class="navbar">
+    <a href="/" class="navbar-brand">
+        <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Libano" class="navbar-logo">
+    </a>
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="/"><i class="fas fa-home"></i> Início</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn"><i class="fas fa-tools"></i> Ferramentas <i class="fas fa-caret-down"></i></a>
+            <div class="dropdown-content">
+                <a href="/wordpdf">PDF para WORD</a>
+                <a href="/pdfword">WORD para PDF</a>
+                <a href="/imgpdf">PNG para PDF</a>
+                <a href="/pdfimg">PDF para PNG</a>
+                <a href="/juntarpdf">Unir PDFs</a>
+                <a href="/textconverter">Conversor Texto</a>
+
+            </div>
+        </li>
+        <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es"><i class="fas fa-envelope"></i> Contato</a></li>
+    </ul>
+</nav>
+        <div class="container">
+            <h2>Converter Maiúsculas e Minúsculas</h2>
+            <p>Converter de maiúscula para minúscula ou aplicar outros formatos com um clique.</p>
+
+            <textarea id="inputText" placeholder="Digite ou cole seu texto aqui..."></textarea>
+
+            <div class="buttons">
+                <button onclick="toUpperCase()">MAIÚSCULO</button>
+                <button onclick="toLowerCase()">minúsculo</button>
+                <button onclick="toAlternado()">AlTeRnAdO</button>
+                <button onclick="inverterTexto()">Inverter Texto</button>
+                <button onclick="primeiraLetraPalavra()">Primeira Letra Palavra</button>
+                <button onclick="primeiraLetraFrase()">Primeira palavra frase</button>
+                <button onclick="removerPontuacaoEAcentos()">Remover Pontuação e Acentos</button>
+                <button onclick="selecionarTexto()">Selecionar Tudo</button>
+            </div>
+        </div>
+        <script src="../static/conversortxt.js"></script>
+    </body>
+    </html>

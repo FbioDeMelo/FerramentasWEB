@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reordenar PDF</title>
+    <style>
+        .thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+        .thumb { width: 120px; border: 1px solid #ccc; padding: 5px; cursor: grab; }
+        img { max-width: 100%; }
+    </style>
+</head>
+<body>
+<h1>Reordenar PDF</h1>
+
+{% if not pdf_id %}
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept="application/pdf" required>
+    <button type="submit">Enviar</button>
+</form>
+{% else %}
+<form id="reorderForm" method="POST" action="/apply-reorder">
+    <input type="hidden" name="pdf_id" value="{{ pdf_id }}">
+    <div class="thumbs" id="thumbContainer">
+        {% for i, thumb in enumerate(thumbs) %}
+        <div class="thumb" draggable="true" data-index="{{ i }}">
+            <img src="{{ thumb }}">
+            <input type="hidden" name="order[]" value="{{ i }}">
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <button type="submit">Baixar PDF Reordenado</button>
+</form>
+
+<script>
+    const container = document.getElementById("thumbContainer");
+    let dragged = null;
+
+    container.addEventListener("dragstart", e => {
+        dragged = e.target.closest(".thumb");
+    });
+
+    container.addEventListener("dragover", e => {
+        e.preventDefault();
+        const target = e.target.closest(".thumb");
+        if (target && target !== dragged) {
+            const thumbs = [...container.children];
+            const draggedIndex = thumbs.indexOf(dragged);
+            const targetIndex = thumbs.indexOf(target);
+            if (draggedIndex < targetIndex) {
+                container.insertBefore(dragged, target.nextSibling);
+            } else {
+                container.insertBefore(dragged, target);
+            }
+        }
+    });
+
+    document.getElementById("reorderForm").addEventListener("submit", () => {
+        document.querySelectorAll(".thumb input").forEach((input, idx) => {
+            input.value = idx;
+        });
+    });
+</script>
+{% endif %}
+</body>
+</html>

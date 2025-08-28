@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Arquivos PDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://ams3.cdnastron.com.br/modelo-v1-2/mod_preferencias/ext_header-login/cn150150/header-login-10638.jpg" type="image/png">
+    <link rel="stylesheet" href="/static/index.css">    
+</head>
+<body>
+    <nav class="navbar">
+        <a href="https://faculdadelibano.edu.br/" class="navbar-brand">
+            <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Libano" class="navbar-logo">
+        </a>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="/"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="/sobre"><i class="fas fa-info-circle"></i> Sobre</a></li>
+            <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es"><i class="fas fa-envelope"></i> Contato</a></li>
+        </ul>
+    </nav>
+<section class="hero animate-in">
+  <h1>Conversor de Arquivos</h1>
+  <p>Ferramentas online rápidas e fáceis para converter entre formatos de documentos e imagens.</p>
+</section>
+<div class="tools-controls animate-in delay-1">
+<div class="search-box">
+  <i class="fas fa-search"></i>
+  <input type="text" id="searchInput" placeholder="Buscar ferramenta...">
+  <span id="clearSearch" class="clear-btn"><i class="fas fa-times"></i></span>
+</div>
+
+    <div class="filter-options">
+      <button class="filter-btn active" data-filter="all">Todas</button>
+      <button class="filter-btn" data-filter="pdf">PDF</button>
+      <button class="filter-btn" data-filter="texto">Texto</button>
+      <button class="filter-btn" data-filter="outros">Outros</button>
+    </div>
+  </div>
+<section id="toolGrid" class="tool-grid animate-in">
+</section>
+<script src="../static/tools.js"></script>
+<div id="updateModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>🆕 Nota de Atualização</h2>
+    <p><strong>Versão 1.2.1 - Agosto/2025</strong></p>
+<ul style="margin-top: 1rem; text-align: left; line-height: 1.6;">
+  <li><i class="fas fa-file-alt" style="color:#2563eb;"></i> Correção no erro do <strong>Conversor de Texto</strong></li>
+  <li><i class="fas fa-filter" style="color:#16a34a;"></i> Melhorias visuais na <strong>tela inicial</strong>, com novo filtro e campo de pesquisa</li>
+  <li><i class="fas fa-file-word" style="color:#4f46e5;"></i> Correção da falha na conversão de <strong>Word para PDF</strong></li>
+  <li><i class="fas fa-tachometer-alt" style="color:#f59e0b;"></i> Ajustes de desempenho e melhorias sutis no design</li>
+</ul>
+
+<p style="margin-top: 1rem; font-weight: bold; color: #2d3748;">
+  🙏 Agradecemos por reportar os erros e ajudar a melhorar a plataforma!
+</p>
+    <!-- 🔽 Opção "não mostrar novamente" -->
+    <label style="display:flex; align-items:center; gap:8px; margin-top:1rem; cursor:pointer; color:black;">
+      <input type="checkbox" id="dontShowAgain">
+      Não mostrar novamente
+    </label>
+
+    <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1rem;">
+      <button id="closeUpdateBtn" style="padding: 10px 20px; border: none; background-color: #ccc; color: #333; border-radius: 5px; cursor: pointer;">Fechar</button>
+      <a href="/atualizacoes" target="_blank" style="padding: 10px 20px; background-color: #ea005f; color: white; border-radius: 5px; text-decoration: none; font-weight: bold;">Acessar Atualização</a>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img src="https://institutolibanoead.com.br/_next/image?url=%2Froot%2Flogo-website-branca.webp&w=1920&q=75" alt="Faculdade Líbano" class="footer-logo">
+            <p>“Porventura não se converterá o Líbano, num breve momento, em campo fértil? E o campo fértil não se reputará por um bosque?”<br>– Isaías 29:17</p>
+        </div>
+        <div class="footer-col">
+            <h4>Links Rápidos</h4>
+            <ul>
+                <li><a href="https://libanoposgraduacao.com.br">Início</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="/atualizacoes">Versões</a></li>
+                <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es">Contato</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociais</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Faculdade Líbano. Todos os direitos reservados.</p>
+    </div>
+</footer>
+</body>
+<script>
+        function toggleMenu() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            navbarLinks.classList.toggle('active');
+        }
+       window.addEventListener("scroll", function () {
+    const backToTop = document.querySelector(".back-to-top");
+    if (backToTop) {
+        backToTop.classList.toggle("show", window.scrollY > 200);
+    }
+});
+window.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("updateModal");
+  const closeIcon = modal.querySelector(".close-button");
+  const closeBtn = document.getElementById("closeUpdateBtn");
+  const dontShowAgain = document.getElementById("dontShowAgain");
+
+  // 🔍 Verifica se o usuário já pediu para não mostrar
+  if (!localStorage.getItem("hideUpdateModal")) {
+    modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+  }
+
+  function fecharModal() {
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+
+    // Se marcado, grava no localStorage
+    if (dontShowAgain.checked) {
+      localStorage.setItem("hideUpdateModal", "true");
+    }
+  }
+
+  closeIcon.addEventListener("click", fecharModal);
+  closeBtn.addEventListener("click", fecharModal);
+
+  window.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      fecharModal();
+    }
+  });
+});
+        </script>
+</html>

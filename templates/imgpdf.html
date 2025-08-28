@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagem para PDF</title>
+    <link rel="icon" href="https://ams3.cdnastron.com.br/modelo-v1-2/mod_preferencias/ext_header-login/cn150150/header-login-10638.jpg" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">
+        <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Libano" class="navbar-logo">
+    </a>
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="/"><i class="fas fa-home"></i> Início</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn"><i class="fas fa-tools"></i> Ferramentas <i class="fas fa-caret-down"></i></a>
+            <div class="dropdown-content">
+                <a href="/wordpdf">PDF para WORD</a>
+                <a href="/pdfword">WORD para PDF</a>
+                <a href="/imgpdf">PNG para PDF</a>
+                <a href="/pdfimg">PDF para PNG</a>
+                <a href="/juntarpdf">Unir PDFs</a>
+            </div>
+        </li>
+        <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es"><i class="fas fa-envelope"></i> Contato</a></li>
+    </ul>
+</nav>
+<div class="main-content">
+  <div class="container">
+    <h1>Converter Imagem para PDF</h1>
+    <form action="/convert-img-pdf" method="post" enctype="multipart/form-data">
+
+      <!-- Upload estilizado -->
+      <div class="file-upload-wrapper">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Arraste e solte suas imagens aqui ou clique para selecionar</p>
+        <input type="file" name="file" accept="image/*" multiple required id="fileInput">
+        <div class="file-info" id="fileInfo">Nenhuma imagem selecionada</div>
+      </div>
+
+      <!-- Lista de arquivos (fora do input) -->
+      <ul id="fileList" class="file-list"></ul>
+
+      <!-- Botões -->
+      <button type="submit" class="btn btn-converter">
+        <i class="fas fa-file-export"></i> Converter
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="abrirModal()">
+        <i class="fas fa-trash-alt"></i> Limpar Seleção
+      </button>
+    </form>
+  </div>
+</div>
+
+        <div id="modalAviso" class="modal">
+            <div class="modal-content">
+                <img src="https://faculdadelibano.edu.br/_next/image?url=%2Froot%2Flogo-website-colorida.webp&w=384&q=75" alt="Faculdade Líbano" class="modal-logo">
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h2>Tem certeza que deseja limpar a seleção de imagens?</h2>
+                <div class="modal-buttons">
+                    <button class="btn btn-accent" onclick="limparArquivo()">
+                        <i class="fas fa-check"></i> Sim, limpar
+                    </button>
+                    <button class="btn btn-secondary" onclick="fecharModal()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <img src="https://institutolibanoead.com.br/_next/image?url=%2Froot%2Flogo-website-branca.webp&w=1920&q=75" alt="Faculdade Líbano" class="footer-logo">
+            <p>“Porventura não se converterá o Líbano, num breve momento, em campo fértil? E o campo fértil não se reputará por um bosque?”<br>– Isaías 29:17</p>
+        </div>
+        <div class="footer-col">
+            <h4>Links Rápidos</h4>
+            <ul>
+                <li><a href="https://libanoposgraduacao.com.br">Início</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="https://wa.me/553199283513?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es">Contato</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Redes Sociais</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Faculdade Líbano. Todos os direitos reservados.</p>
+    </div>
+</footer>
+<script>
+  function toggleMenu() {
+    document.querySelector('.navbar-links').classList.toggle('active');
+  }
+
+  const fileInput = document.getElementById('fileInput');
+  const fileInfo = document.getElementById('fileInfo');
+  const fileList = document.getElementById('fileList');
+
+  fileInput.addEventListener('change', function () {
+    fileList.innerHTML = ""; // limpa a lista antes
+    if (this.files.length > 0) {
+      fileInfo.textContent = `${this.files.length} imagem(ns) selecionada(s)`;
+      fileInfo.style.color = 'var(--accent-color)';
+      fileInfo.style.fontWeight = '500';
+
+      Array.from(this.files).forEach((file, index) => {
+        const li = document.createElement("li");
+        li.textContent = file.name;
+
+        // botão remover
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        removeBtn.classList.add("remove-btn");
+        removeBtn.onclick = () => {
+          removeFile(index);
+        };
+
+        li.appendChild(removeBtn);
+        fileList.appendChild(li);
+      });
+    } else {
+      fileInfo.textContent = "Nenhuma imagem selecionada";
+      fileInfo.style.color = "#666";
+      fileInfo.style.fontWeight = "normal";
+    }
+  });
+
+  // função para remover arquivo da lista
+  function removeFile(index) {
+    const dt = new DataTransfer();
+    const { files } = fileInput;
+
+    Array.from(files).forEach((file, i) => {
+      if (i !== index) dt.items.add(file); // mantém os outros
+    });
+
+    fileInput.files = dt.files;
+    fileInput.dispatchEvent(new Event("change")); // atualiza visual
+  }
+
+  function abrirModal() {
+    document.getElementById('modalAviso').style.display = 'flex';
+  }
+  function fecharModal() {
+    document.getElementById('modalAviso').style.display = 'none';
+  }
+  function limparArquivo() {
+    fileInput.value = '';
+    fileInfo.textContent = 'Nenhuma imagem selecionada';
+    fileInfo.style.color = '#666';
+    fileInfo.style.fontWeight = 'normal';
+    fileList.innerHTML = '';
+    fecharModal();
+  }
+</script>
+
+</body>
+</html>
